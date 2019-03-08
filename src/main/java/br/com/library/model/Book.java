@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +21,15 @@ import lombok.NoArgsConstructor;
 @Entity(name="book")
 public class Book implements Serializable{
 
-    private static final long serialVersionUID = -7541531866614397537L;
+	private static final long serialVersionUID = 6515550411704844803L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private String title;
+    
+    @ManyToOne
+    @JoinColumn(name="id_author")
+    private Author author;
 }
