@@ -20,7 +20,7 @@ import br.com.library.service.BookService;
 @RequestMapping(value="/book")
 public class BookResource {
 	
-	private static final String BOOK_NOT_FOUND = "Book not found!";
+	private static final String BOOK_NOT_FOUND = "Book not found for ID: ";
 	private BookService service;
 	
 	@Autowired
@@ -38,7 +38,7 @@ public class BookResource {
     	Book book = service.findById(id);
     	
     	if(isBookNotExists(book)) {
-    		throw new ResourceNotFoundException(BOOK_NOT_FOUND);
+    		throw new ResourceNotFoundException(BOOK_NOT_FOUND+id);
     	}
     	
     	return new ResponseEntity<>(book, HttpStatus.OK);
