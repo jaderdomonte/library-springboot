@@ -62,6 +62,7 @@ public class BookResource {
     }
     
     @PutMapping
+    @Transactional
     public ResponseEntity<?> update(@RequestBody Book book){
     	service.save(book);
     	
