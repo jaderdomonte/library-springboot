@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.library.exceptions.ResourceNotFoundException;
 import br.com.library.model.Book;
 import br.com.library.service.BookService;
 
@@ -19,6 +20,7 @@ import br.com.library.service.BookService;
 @RequestMapping(value="/book")
 public class BookResource {
 	
+	private static final String BOOK_NOT_FOUND = "Book not found!";
 	private BookService service;
 	
 	@Autowired
@@ -33,8 +35,18 @@ public class BookResource {
     
     @GetMapping(value="/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
-    	return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    	Book book = service.findById(id);
+    	
+    	if(isBookNotExists(book)) {
+    		throw new ResourceNotFoundException(BOOK_NOT_FOUND);
+    	}
+    	
+    	return new ResponseEntity<>(book, HttpStatus.OK);
     }
+
+	private boolean isBookNotExists(Book book) {
+		return book == null;
+	}
     
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Book book){
