@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class Book implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+	@NotEmpty
     private String title;
     
     @ManyToOne

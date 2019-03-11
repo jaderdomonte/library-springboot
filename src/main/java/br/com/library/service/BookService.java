@@ -1,8 +1,8 @@
 package br.com.library.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.library.model.Book;
@@ -18,8 +18,8 @@ public class BookService {
 		this.dao = dao;
 	}
 	
-	public List<Book> listAll(){
-		return (List<Book>) dao.findAll();
+	public Page<Book> listAll(Pageable pageable){
+		return dao.findAll(pageable);
 	}
 	
 	public Book findById(Long id) {
