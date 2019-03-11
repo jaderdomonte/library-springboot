@@ -1,11 +1,7 @@
 package br.com.library.model;
 
-import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -21,14 +17,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity(name="book")
-public class Book implements Serializable{
+public class Book extends AbstractEntity {
 
 	private static final long serialVersionUID = 6515550411704844803L;
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
 	@NotEmpty
     private String title;
     
