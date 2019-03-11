@@ -6,15 +6,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.library.model.Book;
-import br.com.library.repo.BookRepo;
+import br.com.library.repo.BookRepository;
 
 @Service
 public class BookService {
 
-	private BookRepo dao;
+	private BookRepository dao;
 	
 	@Autowired
-	public BookService(BookRepo dao) {
+	public BookService(BookRepository dao) {
 		this.dao = dao;
 	}
 	
@@ -34,11 +34,11 @@ public class BookService {
 		dao.delete(id);
 	}
 
-	public BookRepo getDao() {
+	public BookRepository getDao() {
 		return dao;
 	}
 
-	public void setDao(BookRepo dao) {
+	public void setDao(BookRepository dao) {
 		this.dao = dao;
 	}
 }

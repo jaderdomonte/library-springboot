@@ -14,10 +14,10 @@ import br.com.library.model.Book;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class BookRepoTest {
+public class BookRepositoryTest {
 	
 	@Autowired
-	private BookRepo repo;
+	private BookRepository repo;
 
 	@Test
 	public void deveRetornarLivroPorId() {
