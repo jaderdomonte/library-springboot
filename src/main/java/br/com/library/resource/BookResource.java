@@ -54,21 +54,21 @@ public class BookResource {
 		return book == null;
 	}
 
-	@PostMapping(path = "admin/book")
 	@Transactional
+	@PostMapping(path = "admin/book")
 	public ResponseEntity<?> save(@Valid @RequestBody Book book) {
 		return new ResponseEntity<>(service.save(book), HttpStatus.CREATED);
 	}
 
-	@PutMapping(path = "admin/book")
 	@Transactional
+	@PutMapping(path = "admin/book")
 	public ResponseEntity<?> update(@RequestBody Book book) {
 		service.save(book);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@DeleteMapping(path = "admin/book/{id}")
 	@Transactional
+	@DeleteMapping(path = "admin/book/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
