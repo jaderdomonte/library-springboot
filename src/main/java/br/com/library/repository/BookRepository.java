@@ -1,4 +1,4 @@
-package br.com.library.repo;
+package br.com.library.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

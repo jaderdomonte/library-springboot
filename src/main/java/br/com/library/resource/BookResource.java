@@ -22,7 +22,7 @@ import br.com.library.model.Book;
 import br.com.library.service.BookService;
 
 @RestController
-@RequestMapping(value = "/book")
+@RequestMapping(path = "v1")
 public class BookResource {
 
 	private static final String BOOK_NOT_FOUND = "Book not found for ID: ";
@@ -34,12 +34,12 @@ public class BookResource {
 		this.service = service;
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping(path = "protected/book")
 	public ResponseEntity<?> listAll(Pageable pageable) {
 		return new ResponseEntity<>(service.listAll(pageable), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(path = "protected/book/{id}")
 	public ResponseEntity<?> findById(@PathVariable("id") Long id) {
 		Book book = service.findById(id);
 
@@ -54,20 +54,20 @@ public class BookResource {
 		return book == null;
 	}
 
-	@PostMapping
+	@PostMapping(path = "admin/book")
 	@Transactional
 	public ResponseEntity<?> save(@Valid @RequestBody Book book) {
 		return new ResponseEntity<>(service.save(book), HttpStatus.CREATED);
 	}
 
-	@PutMapping
+	@PutMapping(path = "admin/book")
 	@Transactional
 	public ResponseEntity<?> update(@RequestBody Book book) {
 		service.save(book);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(path = "admin/book/{id}")
 	@Transactional
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		service.delete(id);

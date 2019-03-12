@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.library.model.Book;
-import br.com.library.repo.BookRepository;
+import br.com.library.repository.BookRepository;
 
 @Service
 public class BookService {

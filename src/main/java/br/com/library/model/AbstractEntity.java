@@ -7,7 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import lombok.Data;
+
 @MappedSuperclass
+@Data
 public class AbstractEntity implements Serializable {
 	
 	private static final long serialVersionUID = 30896754844302955L;
