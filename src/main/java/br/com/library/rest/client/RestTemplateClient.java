@@ -1,8 +1,5 @@
 package br.com.library.rest.client;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
