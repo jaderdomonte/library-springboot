@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.library.model.Book;
+import br.com.library.wrapper.PageableResponse;
 
 public class RestTemplateClient {
 	
@@ -20,17 +21,20 @@ public class RestTemplateClient {
 										.rootUri(URL)
 										.basicAuthorization("jader", "senha")
 										.build();
-		Book book = restTemplate.getForObject("/{id}", Book.class, 1);
-		System.out.println(book);
+//		Book book = restTemplate.getForObject("/{id}", Book.class, 1);
+//		System.out.println(book);
+//		
+//		ResponseEntity<Book> forEntity = restTemplate.getForEntity("/{id}", Book.class, 1);
+//		System.out.println(forEntity);
+//		System.out.println(forEntity.getBody());
+//		
+//		Book[] books = restTemplate.getForObject("/", Book[].class);
+//		System.out.println(Arrays.toString(books));
+//		
+//		ResponseEntity<List<Book>> bookList = restTemplate.exchange("/", HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>() {});
+//		System.out.println(bookList.getBody());
 		
-		ResponseEntity<Book> forEntity = restTemplate.getForEntity("/{id}", Book.class, 1);
-		System.out.println(forEntity);
-		System.out.println(forEntity.getBody());
-		
-		Book[] books = restTemplate.getForObject("/", Book[].class);
-		System.out.println(Arrays.toString(books));
-		
-		ResponseEntity<List<Book>> bookList = restTemplate.exchange("/", HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>() {});
-		System.out.println(bookList.getBody());
+		ResponseEntity<PageableResponse<Book>> exchange = restTemplate.exchange("/", HttpMethod.GET, null, new ParameterizedTypeReference<PageableResponse<Book>>() {});
+		System.out.println(exchange.getBody());
 	}
 }
