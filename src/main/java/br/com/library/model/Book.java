@@ -27,4 +27,9 @@ public class Book extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name="id_author")
     private Author author;
+
+	@Override
+	public String toString() {
+		return "Book [title=" + title + ", author=" + author + "]";
+	}
 }
