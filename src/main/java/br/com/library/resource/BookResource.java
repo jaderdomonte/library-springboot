@@ -36,7 +36,7 @@ public class BookResource {
 
 	@GetMapping(path = "protected/book")
 	public ResponseEntity<?> listAll(Pageable pageable) {
-		return new ResponseEntity<>(service.listAll(), HttpStatus.OK);
+		return new ResponseEntity<>(service.listAll(pageable), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "protected/book/{id}")
