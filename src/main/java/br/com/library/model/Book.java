@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity(name="book")
+@EqualsAndHashCode(callSuper=false)
 public class Book extends AbstractEntity {
 
 	private static final long serialVersionUID = 6515550411704844803L;

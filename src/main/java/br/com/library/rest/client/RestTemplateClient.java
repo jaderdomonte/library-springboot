@@ -11,15 +11,17 @@ import br.com.library.wrapper.PageableResponse;
 
 public class RestTemplateClient {
 	
-	private static final String URL = "http://localhost:8080/library/v1/protected/book";
+//	private static final String URL = "http://localhost:8080/library/v1/protected/book";
 	
 	public static void main(String[] args) {
-		RestTemplate restTemplate = new RestTemplateBuilder()
-										.rootUri(URL)
-										.basicAuthorization("jader", "senha")
-										.build();
+//		RestTemplate restTemplate = new RestTemplateBuilder()
+//										.rootUri(URL)
+//										.basicAuthorization("jader", "senha")
+//										.build();
+		RestClient client = RestClient.newInstance().resource("/v1/protected/book").uri("/{id}").pathParam("1");
+		ResponseEntity<Book> book = client.get(Book.class);
 //		Book book = restTemplate.getForObject("/{id}", Book.class, 1);
-//		System.out.println(book);
+		System.out.println(book);
 //		
 //		ResponseEntity<Book> forEntity = restTemplate.getForEntity("/{id}", Book.class, 1);
 //		System.out.println(forEntity);
@@ -31,7 +33,7 @@ public class RestTemplateClient {
 //		ResponseEntity<List<Book>> bookList = restTemplate.exchange("/", HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>() {});
 //		System.out.println(bookList.getBody());
 		
-		ResponseEntity<PageableResponse<Book>> exchange = restTemplate.exchange("/", HttpMethod.GET, null, new ParameterizedTypeReference<PageableResponse<Book>>() {});
-		System.out.println(exchange.getBody());
+//		ResponseEntity<PageableResponse<Book>> exchange = restTemplate.exchange("/", HttpMethod.GET, null, new ParameterizedTypeReference<PageableResponse<Book>>() {});
+//		System.out.println(exchange.getBody().getContent());
 	}
 }
