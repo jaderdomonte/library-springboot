@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.library.handler.RestResponseExceptionHandler;
 import br.com.library.model.Author;
 import br.com.library.model.Book;
 
@@ -26,9 +27,11 @@ public class RestTemplateClient {
 		restTemplateProtected = new RestTemplateBuilder()
 										.rootUri(URL)
 										.basicAuthorization("jader", "senha")
+										.errorHandler(new RestResponseExceptionHandler())
 										.build();
 		restTemplateAdmin = new RestTemplateBuilder()
 										.rootUri(URL_ADMIN)
+										.errorHandler(new RestResponseExceptionHandler())
 										.basicAuthorization("jader", "senha")
 										.build();
 //		getForObject();
@@ -37,9 +40,11 @@ public class RestTemplateClient {
 //		getAllForObject();
 //		getAllForEntity();
 //		getAllExchange();
-		postForObject();
-		postForEntity();
-		postForExchange();
+//		postForObject();
+//		postForEntity();
+//		postForExchange();
+//		put(createBookWithId());
+		delete(20L);
 	}
 
 	private static void getAllExchange() {
@@ -95,10 +100,25 @@ public class RestTemplateClient {
 		return new Book("Livro 1", new Author(1L, "Author 1"));
 	}
 	
+	private static Book createBookWithId() {
+		Book book = new Book("Livro 1", new Author(1L, "Author 1"));
+		book.setId(1L);
+		
+		return book;
+	}
+	
 	private static HttpHeaders createHeaders() {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		
 		return httpHeaders;
+	}
+	
+	private static void put(Book book) {
+		restTemplateAdmin.put("/", book);
+	}
+	
+	private static void delete(Long id) {
+		restTemplateAdmin.delete("/{id}", id);
 	}
 }

@@ -1,8 +1,11 @@
 package br.com.library.repo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
+
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,19 +19,54 @@ import br.com.library.repository.BookRepository;
 public class BookRepositoryTest {
 	
 	@Autowired
-	private BookRepository repo;
+	private BookRepository repository;
 
+	public ExpectedException thrown = ExpectedException.none();
+	
 	@Test
-	public void deveRetornarLivroPorId() {
-		Book book = repo.findOne(1L);
+	public void shouldPersistBook() {
+		Book book = saveNewBook();
 		
-		assertThat(book.getTitle()).isEqualTo("Crianças Dinamarquesas");
+		assertThat(book.getId()).isNotNull();
+		assertThat(book.getTitle()).isEqualTo("Book 1");
+	}
+
+	private Book saveNewBook() {
+		Book book = createNewBook();
+		
+		this.repository.save(book);
+		return book;
 	}
 	
 	@Test
-	public void naoDeveRetornarLivroPorIdInexistente() {
-		Book book = repo.findOne(4L);
+	public void shouldDeleteBook() {
+		Book book = saveNewBook();
+		this.repository.delete(book);
 		
-		assertThat(book).isNull();
+		assertThat(this.repository.findOne(book.getId())).isNull();
+	}
+	
+	@Test
+	public void shouldUpdateBook() {
+		Book book = saveNewBook();
+		book.setTitle("Book 2");
+		
+		this.repository.save(book);
+		book = this.repository.findOne(book.getId());
+		
+		assertThat(book.getTitle()).isEqualTo("Book 2");
+	}
+
+	private Book createNewBook() {
+		Book book = new Book();
+		book.setTitle("Book 1");
+		return book;
+	}
+	
+	@Test
+	public void shouldNotPersistBookWithTitleIsNull() {
+		thrown.expect(ConstraintViolationException.class);
+//		thrown.expectMessage("O campo title é obrigatório");
+		this.repository.save(new Book());
 	}
 }

@@ -21,13 +21,13 @@ public class Book extends AbstractEntity {
 
 	private static final long serialVersionUID = 6515550411704844803L;
 
-	@NotEmpty
+	@NotEmpty(message = "O campo title é obrigatório")
     private String title;
     
     @ManyToOne
     @JoinColumn(name="id_author")
     private Author author;
-
+    
 	@Override
 	public String toString() {
 		return "Book [title=" + title + ", author=" + author + "]";
