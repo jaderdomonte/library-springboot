@@ -22,6 +22,10 @@ import lombok.NoArgsConstructor;
 public class Book extends AbstractEntity {
 
 	private static final long serialVersionUID = 6515550411704844803L;
+	
+	public Book(Long id) {
+		super(id);
+	}
 
 	@NotEmpty(message = "O campo title é obrigatório")
     private String title;
