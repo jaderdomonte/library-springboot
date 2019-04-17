@@ -1,7 +1,12 @@
 package br.com.library.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,16 +17,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@EqualsAndHashCode
 @Entity
-@EqualsAndHashCode(callSuper=false)
-public class User extends AbstractEntity {
+public class User implements Serializable {
 	
-	private static final long serialVersionUID = 8320572619638126684L;
+	private static final long serialVersionUID = 1L;
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
 	@NotEmpty
 	@Column(unique = true)

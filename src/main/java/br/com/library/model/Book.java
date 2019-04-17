@@ -1,7 +1,12 @@
 package br.com.library.model;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -12,20 +17,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@EqualsAndHashCode
 @Entity(name="book")
-@EqualsAndHashCode(callSuper=false)
-public class Book extends AbstractEntity {
+public class Book implements Serializable {
 
-	private static final long serialVersionUID = 6515550411704844803L;
-	
-	public Book(Long id) {
-		super(id);
-	}
+	private static final long serialVersionUID = 1L;
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
 	@NotEmpty(message = "O campo title é obrigatório")
     private String title;
@@ -33,9 +40,4 @@ public class Book extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name="id_author")
     private Author author;
-    
-	@Override
-	public String toString() {
-		return "Book [title=" + title + ", author=" + author + "]";
-	}
 }

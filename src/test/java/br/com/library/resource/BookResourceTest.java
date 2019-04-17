@@ -56,7 +56,7 @@ public class BookResourceTest {
 	
 	@Test
 	public void listBookShouldReturnStatusCode200WhenUsernameOrPasswordAreCorrect() {
-		List<Book> bookList = Arrays.asList(new Book(1L), new Book(2L));
+		List<Book> bookList = Arrays.asList(Book.builder().id(1L).build(), Book.builder().id(2L).build());
 		BDDMockito.when(repository.findAll()).thenReturn(bookList);
 		
 		ResponseEntity<String> response = restTemplate.getForEntity("/v1/protected/book/", String.class);
@@ -66,7 +66,7 @@ public class BookResourceTest {
 	
 	@Test
 	public void getBookByIdShouldReturnStatusCode200WhenUsernameOrPasswordAreCorrect() {
-		Book book = new Book(1L);
+		Book book = Book.builder().id(1L).build();
 		BDDMockito.when(repository.findOne(book.getId())).thenReturn(book);
 		
 		ResponseEntity<String> response = restTemplate.getForEntity("/v1/protected/book/{id}", String.class, book.getId());

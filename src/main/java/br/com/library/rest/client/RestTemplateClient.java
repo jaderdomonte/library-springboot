@@ -97,11 +97,18 @@ public class RestTemplateClient {
 	}
 	
 	private static Book createBook() {
-		return new Book("Livro 1", new Author(1L, "Author 1"));
+		Book book = Book.builder()
+						 .title("Livro 1")
+						 .author(Author.builder()
+								   	   .id(1L)
+								   	   .name("Author 1")
+								   	   .build())
+						 .build();
+		return book;
 	}
 	
 	private static Book createBookWithId() {
-		Book book = new Book("Livro 1", new Author(1L, "Author 1"));
+		Book book = createBook();
 		book.setId(1L);
 		
 		return book;

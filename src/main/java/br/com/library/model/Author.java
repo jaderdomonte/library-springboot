@@ -1,31 +1,33 @@
 package br.com.library.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+@EqualsAndHashCode
 @Entity(name="author")
-@EqualsAndHashCode(callSuper=false)
-public class Author extends AbstractEntity {
+public class Author implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = -5416252239364162615L;
-	
-	public Author() {}
-	
-	public Author(Long id, String name) {
-		super(id);
-		this.name = name;
-	}
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 	
 	private String name;
-
-	@Override
-	public String toString() {
-		return "Author [name=" + name + "]";
-	}
 }
